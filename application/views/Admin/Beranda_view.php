@@ -1,10 +1,7 @@
 <html>
  <head>
-  <title>
-   Griya Oliver Dashboard
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
+  <title>Griya Oliver Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
   <style>
@@ -13,7 +10,7 @@
         }
   </style>
  </head>
- <body class="bg-gray-100">
+ <body onLoad='startTime()' class="bg-gray-100" >
   <div class="flex">
 
    <!-- Sidebar -->
@@ -26,55 +23,28 @@
     </div>
     <nav>
      <ul>
-      <li class="mb-4">
-       <a class="flex items-center p-2 bg-teal-600 rounded" href="<?= base_url('admin/beranda') ?>">
-        <i class="fas fa-home mr-2">
-        </i>
-        Beranda
-       </a>
+      <li class="mb-4"><a class="flex items-center p-2 bg-teal-600 rounded" href="<?= base_url('admin/beranda') ?>">
+        <i class="fas fa-home mr-2"></i>Beranda</a>
       </li>
-      <li class="mb-4">
-       <a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/kamar') ?>">
-        <i class="fas fa-bed mr-2">
-        </i>
-        Kamar Kost
-       </a>
+      <li class="mb-4"><a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/kamar') ?>">
+        <i class="fas fa-bed mr-2"></i>Kamar Kost</a>
       </li>
-      <li class="mb-4">
-       <a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/penyewa') ?>">
-        <i class="fas fa-users mr-2">
-        </i>
-        Penyewa Kost
-       </a>
+      <li class="mb-4"><a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/penyewa') ?>">
+        <i class="fas fa-users mr-2"></i>Penyewa Kost</a>
       </li>
-      <li class="mb-4">
-       <a class="flex items-center p-2 hover:bg-teal-600 rounded" href="#">
-        <i class="fas fa-file-invoice-dollar mr-2">
-        </i>
-        Tagihan
-       </a>
+      <li class="mb-4"><a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/transaksi') ?>">
+        <i class="fas fa-file-invoice-dollar mr-2"></i>Transaksi</a>
       </li>
-      <li class="mb-4">
-       <a class="flex items-center p-2 hover:bg-teal-600 rounded" href="#">
-        <i class="fas fa-chart-line mr-2">
-        </i>
-        Laporan
-       </a>
+      <li class="mb-4"><a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/konfirmasi') ?>">
+        <i class="fas fa-check-circle mr-2"></i>Konfirmasi</a>
       </li>
-      <li class="mb-4">
-       <a class="flex items-center p-2 hover:bg-teal-600 rounded" href="#">
-        <i class="fas fa-exclamation-circle mr-2">
-        </i>
-        Komplain
-       </a>
+      <li class="mb-4"><a class="flex items-center p-2 hover:bg-teal-600 rounded" href="<?= base_url('admin/laporan') ?>">
+        <i class="fas fa-chart-bar mr-2"></i>Laporan</a>
       </li>
-      <li class="mt-8">
-       <a class="flex items-center p-2 hover:bg-teal-600 rounded" href="#">
-        <i class="fas fa-sign-out-alt mr-2">
-        </i>
-        Keluar
-       </a>
+      <li class="mt-8"><a class="flex items-center p-2 hover:bg-teal-600 rounded" href="#">
+        <i class="fas fa-sign-out-alt mr-2"></i>Keluar</a>
       </li>
+      
      </ul>
     </nav>
    </div>
@@ -86,10 +56,10 @@
       Beranda
      </h1>
      <div class="flex items-center">
-      <span class="mr-4">
+      <span class="mr-4" id="waktu">
        01:22:14
       </span>
-      <span class="mr-4">
+      <span class="mr-4" id="tanggal">
        02 January 2023
       </span>
       <div class="flex items-center">
@@ -162,5 +132,44 @@
     </div>
    </div>
   </div>
+        <script>
+            function startTime() {
+                const today = new Date();
+                let date = today.getDate();
+                let month = today.getUTCMonth();
+                let year = today.getFullYear();
+                let h = today.getHours();
+                let m = today.getMinutes();
+                let s = today.getSeconds();
+                date = checkTime(date);
+                month = bulan(month);
+                month = checkTime(month);
+                m = checkTime(m);
+                s = checkTime(s);
+
+                const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+                const d = new Date();
+                let day = days[d.getDay()];
+
+                document.getElementById("hari").innerHTML = day;
+                document.getElementById("tanggal").innerHTML = date + "/" + month + "/" + year;
+                document.getElementById("waktu").innerHTML = h + ":" + m + ":" + s;
+                setTimeout(startTime, 1000);
+            }
+
+            function bulan(b) {
+                if (b < 13) {
+                    b = 1 + b
+                }; // add zero in front of numbers < 10
+                return b;
+            }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i
+                }; // add zero in front of numbers < 10
+                return i;
+            }
+        </script>
  </body>
 </html>
